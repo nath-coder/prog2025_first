@@ -1,7 +1,11 @@
 //import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
 
 import 'package:flutter/material.dart';
+import 'package:prog2025_firtst/screens/details_screen.dart';
+import 'package:prog2025_firtst/screens/home_screen.dart';
 import 'package:prog2025_firtst/screens/login_screen.dart';
+import 'package:prog2025_firtst/utils/theme_app.dart';
+import 'package:prog2025_firtst/utils/value_listener.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,9 +14,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title:' Material App',
-      home:LoginScreen(),
+    return ValueListenableBuilder<bool>(
+      valueListenable: ValueListener.updTheme,
+      builder: (context, value, _) {
+        return MaterialApp(
+          theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(),
+          routes: {
+            "/home": (context) => HomeScreen(),
+          },
+          onGenerateRoute: (settings) {
+            if (settings.name == "/details") {
+              final url = settings.arguments as String; // recibimos el argumento
+              return MaterialPageRoute(
+                builder: (context) => DetailsScreen(url: url),
+              );
+            }
+            return null;
+          },
+          title:' Material App',
+          home:LoginScreen(),
+        );
+      }
     );
   }
 }

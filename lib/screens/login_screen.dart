@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -10,9 +11,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController conUser=TextEditingController();
   TextEditingController conPwd=TextEditingController();
-
+  bool isValidating=false;
   @override
   Widget build(BuildContext context) {
+    
     final txtUser=TextField(
       keyboardType: TextInputType.emailAddress,
       controller: conUser,
@@ -62,14 +64,30 @@ class _LoginScreenState extends State<LoginScreen> {
                     txtUser,
                     txtPwd,
                     IconButton(
-                        onPressed: (){}, 
+                        onPressed: (){
+                          isValidating=true;
+                          setState(() {});
+                          Future.delayed(Duration(milliseconds: 3000)).then(
+                            (value) {
+                              Navigator.pushNamed(context, "/home");
+                              isValidating=false;
+                              setState(() {});
+                            },
+                            );
+                          
+                        }, 
                         icon: Icon(Icons.login,size:40)
                       )
                   ],
                 ),
               ),
             ),
-            
+            Positioned(
+              top: 100,
+              child: isValidating 
+                ? Lottie.asset('assets/paws.json') 
+                : Container(),
+            ),
           ],
         ),
       ),
