@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:prog2025_firtst/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -45,8 +46,19 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Positioned(
               top: 150,
-              child: Text('BIENVENIDO',
-                style: TextStyle(color: Colors.white,fontSize: 35, fontFamily: 'Sewer'),
+              child: Hero(
+                tag: "welcomeText",
+                child: Material(
+                  color: Colors.transparent,
+                  child: Text(
+                    'BIENVENIDO',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 35,
+                      fontFamily: 'Sewer',
+                    ),
+                  ),
+                ),
               ),
             ),
             Positioned(
@@ -63,21 +75,45 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     txtUser,
                     txtPwd,
-                    IconButton(
-                        onPressed: (){
-                          isValidating=true;
-                          setState(() {});
-                          Future.delayed(Duration(milliseconds: 3000)).then(
-                            (value) {
-                              Navigator.pushNamed(context, "/home");
-                              isValidating=false;
-                              setState(() {});
-                            },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                         IconButton(
+                          onPressed: (){
+                            isValidating=true;
+                            setState(() {});
+                            Future.delayed(Duration(milliseconds: 3000)).then(
+                              (value) {
+                                Navigator.pushNamed(context, "/home");
+                                isValidating=false;
+                                setState(() {});
+                              },
+                              );
+                            
+                          }, 
+                          icon: Icon(Icons.login,size:40)
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                transitionDuration:
+                                    const Duration(milliseconds: 700),
+                                pageBuilder: (_, __, ___) =>
+                                    const RegisterScreen(),
+                              ),
                             );
-                          
-                        }, 
-                        icon: Icon(Icons.login,size:40)
-                      )
+                          },
+                          child: const Text(
+                            "Crear cuenta",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ]
+                    )
                   ],
                 ),
               ),

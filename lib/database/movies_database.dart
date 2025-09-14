@@ -20,7 +20,7 @@ class MoviesDatabase {
   Future<Database?> _initDatabase() async {
     Directory folder = await getApplicationDocumentsDirectory();
     String pathDB = join(folder.path, namedb); //"${folder.path}/nombreBD"
-    return openDatabase(pathDB, version: versionDB,onCreate: createTables);
+    return openDatabase(pathDB, version: versionDB,onCreate: createTables); // si se cambian las version se ejecuta el onCreate.
 
   }
   
@@ -37,4 +37,18 @@ class MoviesDatabase {
       ''';
       db.execute(query);
   }
+
+  Future<int> INSERT(String table, Map<String, dynamic> data) async{
+    var con = await database;
+     return con!.insert(table, data); // el ! es para decir que no es nulo
+  }
+  Future<int> UPDATE(String table, Map<String, dynamic> data) async{
+    var con = await database;
+    return con!.update(table, data, where: "idMovie = ?",whereArgs: [data["idMovie"]]); // consultas parametrizadas
+  }
+  Future<int> DELETE(String table, int id) async{
+    var con = await database;
+    return con!.delete(table, where: "idMovie = ?", whereArgs: [id]);
+  }
+  SELECT(){}
 }
