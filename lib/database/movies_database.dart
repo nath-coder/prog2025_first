@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:prog2025_firtst/models/movie_dao.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -50,5 +51,13 @@ class MoviesDatabase {
     var con = await database;
     return con!.delete(table, where: "idMovie = ?", whereArgs: [id]);
   }
-  SELECT(){}
+  Future<List<MovieDao>> SELECT() async {
+    var con = await database;
+    final res=await con!.query("tblMovies");
+    //debo de traer cada mapa de la lista y convertirlo a un objeto de tipo MovieDao
+    //se necesita un cilclo. El map es una funcion de List que ejecuta una funcion por cada elemento de la 
+    //movie lo que esta dentro del map es una funcion anonima
+    // to list convierte el iterable a una lista
+    return res.map((movie) => MovieDao.fromMap(movie),).toList();
+  }
 }

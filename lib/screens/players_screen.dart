@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:prog2025_firtst/components/player_card.dart';
+import 'package:prog2025_firtst/widgets/player_card.dart';
 
 class PlayersScreen extends StatelessWidget {
   const PlayersScreen({super.key});

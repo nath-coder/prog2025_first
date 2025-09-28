@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:prog2025_firtst/components/attribute_widget.dart';
+import 'package:prog2025_firtst/widgets/attribute_widget.dart';
+import 'package:prog2025_firtst/screens/check_out_screen.dart';
 import 'package:prog2025_firtst/screens/players_screen.dart';
 import 'package:prog2025_firtst/utils/value_listener.dart';
 import 'package:water_drop_nav_bar/water_drop_nav_bar.dart';
+
+import 'catalog_screen.dart';
+import 'rewards_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final Color navigationBarColor = Colors.pink[100]!;
+  final Color navigationBarColor = Colors.black;
   int selectedIndex = 0;
   late PageController pageController;
   @override
@@ -51,20 +55,16 @@ class _HomeScreenState extends State<HomeScreen> {
         children: const [
           PlayersScreen(),
           //Center(child: Text("Página 2 - Favoritos")),
-          AttributeWidget(
-            progress: 5.0, // <-- con decimal
-            image: 'assets/gato.png',
-            //child: Image.asset( 'assets/gato.png'),
-          ),
-
-          //AttributeWidget(progress: 0.7, child: Image.network('https://flutter4fun.com/wp-content/uploads/2020/11/speed.png')),
-          Center(child: Text("Página 3 - Email")),
-          Center(child: Text("Página 4 - Carpeta")),
+         
+          //AttributeWidget(progress: 0.7, child: Image.network('https://flutter4fun.com/wp-content/uploads/2020/11/speed.png'))
+          CatalogScreen(),
+          CheckoutScreen(),
+           RewardScreen(),
         ],
       ),
       bottomNavigationBar: WaterDropNavBar(
           backgroundColor: navigationBarColor,
-          waterDropColor: Colors.pink,
+          waterDropColor: Colors.grey.shade200,
           onItemSelected: (int index) {
             setState(() {
               selectedIndex = index;
@@ -80,16 +80,18 @@ class _HomeScreenState extends State<HomeScreen> {
               outlinedIcon: Icons.bookmark_border_rounded,
             ),
             BarItem(
-                filledIcon: Icons.favorite_rounded,
-                outlinedIcon: Icons.favorite_border_rounded),
-            BarItem(
-              filledIcon: Icons.email_rounded,
-              outlinedIcon: Icons.email_outlined,
+              filledIcon: Icons.shopping_bag_rounded,
+              outlinedIcon: Icons.shopping_bag_outlined,
             ),
             BarItem(
-              filledIcon: Icons.folder_rounded,
-              outlinedIcon: Icons.folder_outlined,
+              filledIcon: Icons.shopping_cart_rounded,
+              outlinedIcon: Icons.shopping_cart_outlined,
             ),
+            BarItem(
+              filledIcon: Icons.emoji_events,
+              outlinedIcon: Icons.emoji_events_outlined,
+            ),
+
           ],
         ),
     );

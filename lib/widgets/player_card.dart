@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-import 'package:prog2025_firtst/components/attribute_widget.dart';
+import 'package:prog2025_firtst/widgets/attribute_widget.dart';
 
 class PlayerCard extends StatelessWidget {
   final String image;

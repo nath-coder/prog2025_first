@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prog2025_firtst/components/attribute_painter.dart';
+import 'package:prog2025_firtst/widgets/attribute_painter.dart';
 
 class AttributeWidget extends StatelessWidget {
   final double size;
