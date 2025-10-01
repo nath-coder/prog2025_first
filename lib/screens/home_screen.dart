@@ -44,7 +44,26 @@ class _HomeScreenState extends State<HomeScreen> {
           })
         ],
       ),
-      drawer:Drawer(),
+      drawer:Drawer(
+        child: ListView(
+          children: [
+            const UserAccountsDrawerHeader(
+              accountName: Text('Diana Nathasha'), 
+              accountEmail: Text('2103023@itcelaya.edu.mx'),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage('https://i.pravatar.cc/300'),
+              ),
+            ),
+            ListTile(
+              leading: Image.asset('assets/watching.png', width: 30, height: 30),
+              title: Text('List Movies'),
+              subtitle: Text('Database Movies'),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => Navigator.pushNamed(context,"/listdb"),
+            )
+          ],
+        ),
+      ),
       body: PageView(
         controller: pageController,
         onPageChanged: (index) {

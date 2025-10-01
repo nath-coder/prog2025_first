@@ -8,7 +8,7 @@ import 'package:path/path.dart';
 
 class MoviesDatabase {
   static final namedb="MOVIESDB";
-  static final versionDB=1; //esto se debe de modificar si esta en producción y si esta cambio de desarrollo si hay cambio en el BD o eliminar cache 
+  static final versionDB=2; //esto se debe de modificar si esta en producción y si esta cambio de desarrollo si hay cambio en el BD o eliminar cache 
 
   static Database? _database; //varible que puede ser nula y privada (_)
 

@@ -7,6 +7,9 @@ import 'package:prog2025_firtst/screens/login_screen.dart';
 import 'package:prog2025_firtst/utils/theme_app.dart';
 import 'package:prog2025_firtst/utils/value_listener.dart';
 
+import 'screens/add_movie_screen.dart';
+import 'screens/list_movies.dart';
+
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -21,6 +24,8 @@ class MyApp extends StatelessWidget {
           theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(),
           routes: {
             "/home": (context) => HomeScreen(),
+            "/listdb" : (context) => const ListMovies(),
+            "/add" : (context) => const AddMovieScreen()
           },
           onGenerateRoute: (settings) {
             if (settings.name == "/details") {
