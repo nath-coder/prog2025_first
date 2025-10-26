@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:prog2025_firtst/firebase/songs_firebase.dart';
 import 'package:prog2025_firtst/models/movie_dao.dart';
 
 import '../database/movies_database.dart';
@@ -14,6 +15,7 @@ class AddMovieScreen extends StatefulWidget {
 
 class _AddMovieScreenState extends State<AddMovieScreen> {
  
+
   MoviesDatabase? moviesDB;
   DateTime selectedDate = DateTime.now();
   TextEditingController conTitle = TextEditingController();
@@ -24,6 +26,7 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
   void initState() {
     super.initState();
     moviesDB = MoviesDatabase();
+    
   }
 
   @override
@@ -31,7 +34,7 @@ class _AddMovieScreenState extends State<AddMovieScreen> {
 
     MovieDao? objM;
 
-    if(ModalRoute.of( context )!.settings.arguments != null){
+    {
       objM = ModalRoute.of( context )!.settings.arguments as MovieDao;
       conTitle.text = objM.nameMovie!;
       conTime.text = objM.time!;

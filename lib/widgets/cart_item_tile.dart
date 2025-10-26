@@ -1,20 +1,26 @@
+
 import 'package:flutter/material.dart';
+import 'package:prog2025_firtst/models/product_dao.dart';
 import '../models/catalog_data.dart';
 
 class CartItemTile extends StatelessWidget {
-  final Product product;
+  final ProductDao product;
   final int qty;
+  final String nameCategory;
   final VoidCallback onTap;
   final VoidCallback onIncrement;
   final VoidCallback onDecrement;
+  final VoidCallback onDelete;
 
   const CartItemTile({
     super.key,
     required this.product,
     required this.qty,
+    required this.nameCategory,
     required this.onTap,
     required this.onIncrement,
     required this.onDecrement,
+    required this.onDelete,
   });
 
   @override
@@ -33,7 +39,7 @@ class CartItemTile extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8),
-                  child: Image.network(product.image,
+                  child: Image.network(product.image ?? '',
                       width: 80, height: 80, fit: BoxFit.cover),
                 ),
                 const SizedBox(width: 12),
@@ -41,14 +47,14 @@ class CartItemTile extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(product.title,
+                      Text(product.titulo ?? 'Unknown Product',
                           style:
                               const TextStyle(fontWeight: FontWeight.bold)),
-                      Text(product.category,
+                      Text(nameCategory,
                           style: TextStyle(
                               color: Colors.grey[600], fontSize: 12)),
                       const SizedBox(height: 4),
-                      Text("\$${product.price.toStringAsFixed(2)}",
+                      Text("\$${product.price?.toStringAsFixed(2)}",
                           style: const TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold)),
                     ],
@@ -63,10 +69,11 @@ class CartItemTile extends StatelessWidget {
                       icon: const Icon(Icons.more_horiz, color: Colors.black),
                       onSelected: (value) {
                         // Aquí se podrían manejar acciones específicas
-                        debugPrint("Acción: $value para ${product.id}");
+                        debugPrint("Acción: $value para ${product.idProduct}");
                       },
                       itemBuilder: (context) => [
-                        const PopupMenuItem(
+                        PopupMenuItem(
+                          onTap: onDelete,
                           value: 'delete',
                           child: Row(
                             children: [

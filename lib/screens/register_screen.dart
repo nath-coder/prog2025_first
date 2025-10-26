@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:prog2025_firtst/firebase/fire_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,9 +16,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nameCtrl = TextEditingController();
   final _emailCtrl = TextEditingController();
   final _pwdCtrl = TextEditingController();
+  FireAuth? fireAuth;
   File? _avatar;
   bool isRegistering = false;
 
+  @override
+  void initState() {
+    super.initState();
+    fireAuth = FireAuth();
+    
+  }
   Future<void> _pickImage(ImageSource source) async {
     final picker = ImagePicker();
     final picked = await picker.pickImage(source: source);
@@ -34,13 +42,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
         isRegistering = true;
       });
 
-      Future.delayed(const Duration(milliseconds: 3000)).then((_) {
+      fireAuth!.registerWithEmailAndPassword(
+        _emailCtrl.text.trim(), 
+        _pwdCtrl.text.trim()
+      ).then((user) {
+        if (user != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Registro exitoso! Verifica tu correo."),
+              backgroundColor: Colors.green,
+            ),
+          );
+          Navigator.pop(context); // vuelve al LoginScreen
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Error en el registro"),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        setState(() {
+          isRegistering = false;
+        });
+      });
+      /*Future.delayed(const Duration(milliseconds: 3000)).then((_) {
         setState(() {
           isRegistering = false;
         });
 
         Navigator.pop(context); // vuelve al LoginScreen
-      });
+      });*/
     }
   }
 
@@ -142,7 +174,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 child: Form(
                   key: _formKey,
-                  child: SingleChildScrollView( // 👈 aquí
+                  child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

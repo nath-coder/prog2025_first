@@ -8,10 +8,16 @@ class PointsCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const bg = Color(0xFF1E1B3B); // deep purple
+    const accent = Color(0xFFFFC107); // amber
+
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF0052FF),
+        color: bg,
         borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(color: Colors.black.withOpacity(0.4), blurRadius: 10, offset: const Offset(0,4)),
+        ],
       ),
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -22,8 +28,7 @@ class PointsCard extends StatelessWidget {
               const CircleAvatar(
                 backgroundColor: Colors.white,
                 radius: 28,
-                child: Icon(Icons.emoji_events,
-                    color: Colors.amber, size: 32),
+                child: Icon(Icons.emoji_events, color: Colors.amber, size: 32),
               ),
               const Spacer(),
               SizedBox(
@@ -32,36 +37,19 @@ class PointsCard extends StatelessWidget {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: _circle(90, 0.08),
-                    ),
-                    Positioned(
-                      left: 10,
-                      bottom: -20,
-                      child: _circle(90, 0.12),
-                    ),
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      child: _circle(90, 0.18),
-                    ),
+                    Positioned(right: 0, top: 0, child: _circle(90, 0.06)),
+                    Positioned(left: 10, bottom: -20, child: _circle(90, 0.08)),
+                    Positioned(top: 0, left: 0, child: _circle(90, 0.12)),
                     Positioned(
                       top: 5,
                       right: 5,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          const Text("Point:",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18)),
+                          const Text("Point:", style: TextStyle(color: Colors.white, fontSize: 18)),
                           Text(
                             "$value",
-                            style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 26,
-                                fontWeight: FontWeight.bold),
+                            style: const TextStyle(color: Colors.white, fontSize: 26, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -74,10 +62,9 @@ class PointsCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(6),
             child: LinearProgressIndicator(
-              value: value / maxLevel,
-              backgroundColor: Colors.white,
-              valueColor:
-                  const AlwaysStoppedAnimation<Color>(Colors.red),
+              value: (maxLevel == 0) ? 0.0 : (value / maxLevel).clamp(0.0,1.0),
+              backgroundColor: Colors.white24,
+              valueColor: const AlwaysStoppedAnimation<Color>(accent),
               minHeight: 10,
             ),
           ),
@@ -85,10 +72,8 @@ class PointsCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("$value",
-                  style: const TextStyle(color: Colors.white)),
-              Text("Max Level: $maxLevel",
-                  style: const TextStyle(color: Colors.white)),
+              Text("$value", style: const TextStyle(color: Colors.white)),
+              Text("Max Level: $maxLevel", style: const TextStyle(color: Colors.white70)),
             ],
           ),
         ],

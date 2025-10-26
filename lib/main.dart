@@ -1,8 +1,18 @@
 //import 'dart:nativewrappers/_internal/vm/lib/ffi_native_type_patch.dart';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:prog2025_firtst/firebase_options.dart';
+import 'package:prog2025_firtst/screens/add_song_screen.dart';
+import 'package:prog2025_firtst/screens/calendar_purchase.dart';
+import 'package:prog2025_firtst/screens/clothes/add_category.dart';
+import 'package:prog2025_firtst/screens/clothes/add_product.dart';
+import 'package:prog2025_firtst/screens/clothes/list_category.dart';
+import 'package:prog2025_firtst/screens/clothes/list_product.dart';
 import 'package:prog2025_firtst/screens/details_screen.dart';
 import 'package:prog2025_firtst/screens/home_screen.dart';
+import 'package:prog2025_firtst/screens/list_api_movie.dart';
+import 'package:prog2025_firtst/screens/list_songs.dart';
 import 'package:prog2025_firtst/screens/login_screen.dart';
 import 'package:prog2025_firtst/utils/theme_app.dart';
 import 'package:prog2025_firtst/utils/value_listener.dart';
@@ -10,7 +20,15 @@ import 'package:prog2025_firtst/utils/value_listener.dart';
 import 'screens/add_movie_screen.dart';
 import 'screens/list_movies.dart';
 
-void main() => runApp(const MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  //El firebase es asincrono, por eso se utiliza con await
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
+
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -25,7 +43,14 @@ class MyApp extends StatelessWidget {
           routes: {
             "/home": (context) => HomeScreen(),
             "/listdb" : (context) => const ListMovies(),
-            "/add" : (context) => const AddMovieScreen()
+            "/songdb" : (context) => const ListSongs(), 
+            "/listCategory" : (context) => const ListCategory(),
+            "/listProduct" : (context) => const ListProduct(),
+            "/add_product" : (context) => const AddProduct(),
+            "/add_category" : (context) => const AddCategory(),
+            "/add" : (context) => const AddMovieScreen(),
+            "/listApiMovie" : (context) => const ListApiMovie(),
+            "/calendar":(context) => const CalendarPurchasesPage(),
           },
           onGenerateRoute: (settings) {
             if (settings.name == "/details") {

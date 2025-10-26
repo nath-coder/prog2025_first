@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prog2025_firtst/screens/clothes/list_category.dart';
 import 'package:prog2025_firtst/widgets/attribute_widget.dart';
 import 'package:prog2025_firtst/screens/check_out_screen.dart';
 import 'package:prog2025_firtst/screens/players_screen.dart';
@@ -60,6 +61,41 @@ class _HomeScreenState extends State<HomeScreen> {
               subtitle: Text('Database Movies'),
               trailing: Icon(Icons.chevron_right),
               onTap: () => Navigator.pushNamed(context,"/listdb"),
+            ),
+            ListTile(
+              leading: Image.asset('assets/musica.png', width: 30, height: 30),
+              title: Text('List Songs'),
+              subtitle: Text('Database Songs'),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => Navigator.pushNamed(context,"/songdb"),
+            ),
+            ListTile(
+              leading: Image.asset('assets/musica.png', width: 30, height: 30),
+              title: Text('List Categories'),
+              subtitle: Text('Categorias de ropa'),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => Navigator.pushNamed(context,"/listCategory"),
+            ),
+            ListTile(
+              leading: Image.asset('assets/musica.png', width: 30, height: 30),
+              title: Text('List Products'),
+              subtitle: Text('Catalogo de productos'),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => Navigator.pushNamed(context,"/listProduct"),
+            ),
+            ListTile(
+              leading: Image.asset('assets/musica.png', width: 30, height: 30),
+              title: Text('List de movies API'),
+              subtitle: Text('Catalogo de api movies'),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => Navigator.pushNamed(context,"/listApiMovie"),
+            ),
+            ListTile(
+              leading: Image.asset('assets/musica.png', width: 30, height: 30),
+              title: Text('Calendar Purchases'),
+              subtitle: Text('Catalogo de compras'),
+              trailing: Icon(Icons.chevron_right),
+              onTap: () => Navigator.pushNamed(context,"/calendar"),
             )
           ],
         ),

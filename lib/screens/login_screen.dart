@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:prog2025_firtst/firebase/fire_auth.dart';
 import 'package:prog2025_firtst/screens/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -12,7 +13,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController conUser=TextEditingController();
   TextEditingController conPwd=TextEditingController();
+  FireAuth? fireAuth;
   bool isValidating=false;
+  @override
+  void initState() {
+    super.initState();
+    fireAuth = FireAuth();
+  }
   @override
   Widget build(BuildContext context) {
     
@@ -82,13 +89,39 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: (){
                             isValidating=true;
                             setState(() {});
-                            Future.delayed(Duration(milliseconds: 3000)).then(
+                            //Se utiliza un callback, si se completa la operacion,
+                            fireAuth!.signInWithEmailAndPassword(conUser.text, conPwd.text).then((user) {
+                              if(user != null){
+                                isValidating=false;
+                                setState(() {});
+                                Navigator.pushNamed(context, "/home");
+                              }else{
+                                isValidating=false;
+                                setState(() {});
+                                showDialog(
+                                  context: context, 
+                                  builder: (context) => AlertDialog(
+                                    title: Text('Error'),
+                                    content: Text('Usuario o contraseña incorrectos'),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        }, 
+                                        child: Text('OK')
+                                      )
+                                    ],
+                                  )
+                                );
+                              }
+                            });
+                            /*Future.delayed(Duration(milliseconds: 3000)).then(
                               (value) {
                                 Navigator.pushNamed(context, "/home");
                                 isValidating=false;
                                 setState(() {});
                               },
-                              );
+                              );*/
                             
                           }, 
                           icon: Icon(Icons.login,size:40)
