@@ -34,16 +34,35 @@ class _ListApiMovieState extends State<ListApiMovie> {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
             final movies = snapshot.data!;
-            return GridView.builder(
+            return CustomScrollView(
+              slivers: [
+                SliverGrid.builder(
+                  itemCount: movies.length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: .7,
+                    mainAxisSpacing: 10,
+                    crossAxisSpacing: 10,
+                  ),
+                  itemBuilder: (context, index) {
+                    return ItemMovieWidget(apiMovieDao: movies[index]);
+                  },
+                ),
+              ],
+            );
+             /*GridView.builder(
               itemCount: movies.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 0.7,
+                //childAspectRatio: 0.7,
+                childAspectRatio: .8,
+
+                mainAxisSpacing: 10,
               ),
               itemBuilder: (context, index) {
                 return ItemMovieWidget(apiMovieDao: movies[index]);
               },
-            );
+            );*/
           }
         }
       )
